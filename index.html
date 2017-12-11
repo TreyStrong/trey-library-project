@@ -3,8 +3,76 @@
   <head>
     <meta charset="utf-8">
     <title>Library</title>
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/styles.css">
   </head>
   <body>
+    <div class= "bookTable" "row">
+      <div class="col-md-2"></div>
+        <table class= "col-md-8">
+          <tr>
+            <th>Title</th>
+            <th>Author</th>
+            <th>Page Count</th>
+            <th>Publish Date</th>
+          </tr>
+          <tr>
+            <td>The Hobbit</td>
+            <td>J.R.R. Tolkien</td>
+            <td>400</td>
+            <td>September 21, 1937</td>
+          </tr>
+          <tr>
+            <td>The Sword of Shannara</td>
+            <td>Terry Brooks</td>
+            <td>700</td>
+            <td>September 21, 1977</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6">
+          <button type="button" class="btn btn-primary">Add Book</button>
+      </div>
+      <div class="col-md-6">
+        <button type="button" class="btn btn-primary">Add Books</button>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6">
+        <button type="button" class="btn btn-warning">Remove Book by Title</button>
+      </div>
+      <div class="col-md-6">
+        <button type="button" class="btn btn-danger">Remove Books by Author</button>
+      </div>
+
+    </div>
+    <div class="row">
+      <div class="col-md-3">
+        <button type="button" class="btn btn-success">Get Books by Author</button>
+      </div>
+      <div class="col-md-3">
+        <button type="button" class="btn btn-success">Get Authors</button>
+      </div>
+      <div class="col-md-3">
+        <button type="button" class="btn btn-success">Get Book by Title</button>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6">
+          <button type="button" class="btn btn-success">Get Random Book</button>
+      </div>
+      <div class="col-md-6">
+          <button type="button" class="btn btn-success">Get Random Author</button>
+      </div>
+    </div>
+
+
+    <script src="jquery-3.2.1.min.js"></script>
     <script src="library-project.js"></script>
   </body>
 </html>

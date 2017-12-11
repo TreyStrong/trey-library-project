@@ -13,8 +13,6 @@ var Library;
 
         instance = this;
 
-
-
     this.retrieveLibrary = function(){                              //   retrieve local storage
         if (typeof(Storage) !== undefined) {
             try{
