@@ -8,82 +8,95 @@
   </head>
   <body>
     <header>
-        <div class="jumbotron" style ="background-image: url('library-books.jpg')">
+        <div class="jumbotron banner" style ="background-image: url('library-books.jpg')">
             <h1 class = "headerTitle">Bibliophile's Retreat</h1>
             <p>A place to store all your books!</p>
           </div>
     </header>
     <div class="container">
-      <div class= "bookTable" "row">
+      <div class= "row">
         <div class="col-md-2">
-            <div class="btn-group-vertical">
-                <button type="button" class="btn btn-primary">Add Book</button>
-                <button type="button" class="btn btn-primary">Add Books</button>
-                <button type="button" class="btn btn-primary">Remove Book By Title</button>
-                <button type="button" class="btn btn-primary">Remove Books By Author</button>
+            <div class=" leftButtons btn-toolbar-vertical">
+                <button type="button" class="add-book btn">Add Book</button>
+                <button type="button" class="add-many-books btn">Add Books</button>
+                <button type="button" class="remove-title btn">Remove Book</button>
+                <button type="button" class="remove-author btn">Remove Author</button>
               </div> 
         </div>
-        <table class= "col-md-8">
-            <tr>
-              <th>Title</th>
-              <th>Author</th>
-              <th>Page Count</th>
-              <th>Publish Date</th>
-            </tr>
-            <tr>
-              <td>The Hobbit</td>
-              <td>J.R.R. Tolkien</td>
-              <td>400</td>
-              <td>September 21, 1937</td>
-            </tr>
-            <tr>
-              <td>The Sword of Shannara</td>
-              <td>Terry Brooks</td>
-              <td>700</td>
-              <td>September 21, 1977</td>
-            </tr>
-            <tr>
-              <td>The Fellowship of The Ring</td>
-              <td>J.R.R. Tolkien</td>
-              <td>400</td>
-              <td>September 21, 1937</td>
-            </tr>
-            <tr>
-              <td>The Elfstones of Shannara</td>
-              <td>Terry Brooks</td>
-              <td>700</td>
-              <td>September 21, 1977</td>
-            </tr>
-            <tr>
-              <td>The Two Towers</td>
-              <td>J.R.R. Tolkien</td>
-              <td>400</td>
-              <td>September 21, 1937</td>
-            </tr>
-            <tr>
-              <td>The Wishsong of Shannara</td>
-              <td>Terry Brooks</td>
-              <td>700</td>
-              <td>September 21, 1977</td>
-            </tr>
-            <tr>
-                <td>Dragons of Autumn Twilight</td>
-                <td>Margaret Weiss &amp Tracy Hickman</td>
-                <td>700</td>
-                <td>September 21, 1977</td>
-              </tr>
-          </table>
-          <div class="col-md-2">
-              <div class="btn-group-vertical">
-                  <button type="button" class="btn btn-primary">Get Book By Title</button>
-                  <button type="button" class="btn btn-primary">Get Books By Author</button>
-                  <button type="button" class="btn btn-primary">Get All Authors</button>
-                  <button type="button" class="btn btn-primary">Get Random Book</button>
-                  <button type="button" class="btn btn-primary">Get Random Author</button>
-                </div> 
-          </div>
+        <div class="jumbotron display-results col-md-8">
+        </div>
+        <div class="col-md-2">
+          <div class="rightButtons btn-toolbar-vertical">
+              <button type="button" class="get-authors btn">Get All Authors</button>
+              <button type="button" class="get-rand-book btn">Get Random Book</button>
+              <button type="button" class="get-rand-author btn">Get Random Author</button>
+          </div> 
         </div>
       </div>
+      <div class="row">
+        <form class="form-inline col-md-8 col-md-offset-3" action="/action_page.php">
+          <div class="form-group">
+            <input type="title" class="form-control" id="get-title" placeholder="Find Title">
+          </div>
+          <button type="submit" class="sub-button btn-sm">Submit</button>
+          <div class="form-group">
+            <input type="author" class="form-control" id="get-author" placeholder="Find Author">
+          </div>
+          <button type="submit" class="sub-button btn-sm">Submit</button>
+        </form> 
+      </div>
+      <table class= "bookTable col-md-8 col-md-offset-2">
+        <tr>
+          <th>Title</th>
+          <th>Author</th>
+          <th>Page Count</th>
+          <th>Publish Date</th>
+        </tr>
+        <tr>
+          <td>The Hobbit</td>
+          <td>J.R.R. Tolkien</td>
+          <td>400</td>
+          <td>September 21, 1937</td>
+        </tr>
+        <tr>
+          <td>The Sword of Shannara</td>
+          <td>Terry Brooks</td>
+          <td>700</td>
+          <td>September 21, 1977</td>
+        </tr>
+        <tr>
+          <td>The Fellowship of The Ring</td>
+          <td>J.R.R. Tolkien</td>
+          <td>400</td>
+          <td>September 21, 1937</td>
+        </tr>
+        <tr>
+          <td>The Elfstones of Shannara</td>
+          <td>Terry Brooks</td>
+          <td>700</td>
+          <td>September 21, 1977</td>
+        </tr>
+        <tr>
+          <td>The Two Towers</td>
+          <td>J.R.R. Tolkien</td>
+          <td>400</td>
+          <td>September 21, 1937</td>
+        </tr>
+        <tr>
+          <td>The Wishsong of Shannara</td>
+          <td>Terry Brooks</td>
+          <td>700</td>
+          <td>September 21, 1977</td>
+        </tr>
+        <tr>
+            <td>Dragons of Autumn Twilight</td>
+            <td>Margaret Weiss &amp Tracy Hickman</td>
+            <td>700</td>
+            <td>September 21, 1977</td>
+          </tr>
+      </table>
+    </div>
+  
 
 <!--    <script src="jquery-3.2.1.min.js"></script> -->
     <script src="library-project.js"></script>
