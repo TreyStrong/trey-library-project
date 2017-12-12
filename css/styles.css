@@ -1,3 +1,12 @@
+.jumbotron {
+     color: #fff000;
+     text-align: center;
+}
+.headerTitle {
+    font-family:  'Trebuchet MS', Verdana, Geneva, Arial, sans-serif;
+    font-style: italic;
+}
+
 td {
     text-align: left;
 }th {
@@ -5,9 +14,9 @@ td {
 }
 
 table, th, td {
-    border: 1px solid black;
+    border: 1px solid #000000;
 }
 
-table {
-    margin: 25;
+.btn-group-vertical {
+    text-align: center;
 }
