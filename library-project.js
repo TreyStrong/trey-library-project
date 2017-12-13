@@ -185,10 +185,83 @@ Library.prototype.getRandomAuthorName = function() {
     }
 };
 
+// Library.prototype.getInputFromForm = function(){
+
+// }
+$("#add-book").on( {
+    click: function() {
+        document.getElementById("display-results").innerHTML = 
+        `<form  action='/action_page.php'
+        <div class="form-group">
+            <input type="search" class="form-control"  placeholder="Find Title">
+        </div>
+        <div class="form-group">
+            <input type="search" class="form-control" placeholder="Find Author">
+        </div>
+        <div class="form-group">
+            <input type="search" class="form-control" placeholder="Page Count">
+        </div>
+        <div class="form-group">
+            <input type="search" class="form-control" placeholder="Publish Date">
+        </div>
+      </form>`
+    }
+});
+
+$("#add-many-books").on( {
+    click: function() {
+        document.getElementById("display-results").innerHTML = "add multiple books";
+    }
+});
+
+$("#remove-title").on( {
+    click: function() {
+        document.getElementById("display-results").innerHTML =         
+        `<form  action='/action_page.php'
+            <div class="form-group">
+                <input type="search" class="form-control"  placeholder="Remove Title">
+            </div>
+        </form>`;
+    }
+});
+
+$("#remove-author").on( {
+    click: function() {
+        document.getElementById("display-results").innerHTML = 
+        `<form  action='/action_page.php'
+            <div class="form-group">
+                <input type="search" class="form-control"  placeholder="Remove Author">
+            </div>
+        </form>`;
+    }
+});
+
+$("#get-authors").on( {
+    click: function() {
+        document.getElementById("display-results").innerHTML = "myLibrary.getAuthors()";
+    }
+});
+
+$("#get-rand-book").on( {
+    click: function() {
+        document.getElementById("display-results").innerHTML = "myLibrary.getRandomBook()";
+    }
+});
+
+$("#get-rand-author").on( {
+    click: function() {
+        document.getElementById("display-results").innerHTML = "myLibrary.getRandomAuthorName()";
+    }
+});
+
+
+
 
 
 // test cases
-var myLibrary = new Library();
+
+   var myLibrary = new Library();
+
 
 var booksArray = [
     (new Book("The Hobbit","J.R.R. Tolkien", 300, "September 21, 1937")),

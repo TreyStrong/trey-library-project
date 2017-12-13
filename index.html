@@ -17,42 +17,32 @@
       <div class= "row">
         <div class="col-md-2">
             <div class=" leftButtons btn-toolbar-vertical">
-                <button type="button" class="add-book btn">Add Book</button>
-                <button type="button" class="add-many-books btn">Add Books</button>
-                <button type="button" class="remove-title btn">Remove Book</button>
-                <button type="button" class="remove-author btn">Remove Author</button>
+                <button type="button" id="add-book" class="btn">Add Book</button>
+                <button type="button" id="add-many-books" class="btn">Add Books</button>
+                <button type="button" id="remove-title" class="btn">Remove Book</button>
+                <button type="button" id="remove-author" class="btn">Remove Author</button>
               </div> 
         </div>
-        <div class="jumbotron display-results col-md-8">
+        <div id="display-results" class="jumbotron  col-md-8">
         </div>
         <div class="col-md-2">
           <div class="rightButtons btn-toolbar-vertical">
-              <button type="button" class="get-authors btn">Get All Authors</button>
-              <button type="button" class="get-rand-book btn">Get Random Book</button>
-              <button type="button" class="get-rand-author btn">Get Random Author</button>
+              <button type="button" id="find-title" class="btn">Find Title</button>
+              <button type="button" id="find-author" class="btn">Find Author</button>
+              <button type="button" id= "get-authors" class=" btn">Get All Authors</button>
+              <button type="button" id= "get-rand-book" class="btn">Get Random Book</button>
+              <button type="button" id= "get-rand-author" class=" btn">Get Random Author</button>
           </div> 
         </div>
       </div>
-      <div class="row">
-        <form class="form-inline col-md-8 col-md-offset-3" action="/action_page.php">
-          <div class="form-group">
-            <input type="title" class="form-control" id="get-title" placeholder="Find Title">
-          </div>
-          <button type="submit" class="sub-button btn-sm">Submit</button>
-          <div class="form-group">
-            <input type="author" class="form-control" id="get-author" placeholder="Find Author">
-          </div>
-          <button type="submit" class="sub-button btn-sm">Submit</button>
-        </form> 
-      </div>
-      <table class= "bookTable col-md-8 col-md-offset-2">
+      <table id="bookTable" class="col-md-8 col-md-offset-2">
         <tr>
           <th>Title</th>
           <th>Author</th>
           <th>Page Count</th>
           <th>Publish Date</th>
         </tr>
-        <tr>
+        <!-- <tr>
           <td>The Hobbit</td>
           <td>J.R.R. Tolkien</td>
           <td>400</td>
@@ -93,12 +83,12 @@
             <td>Margaret Weiss &amp Tracy Hickman</td>
             <td>700</td>
             <td>September 21, 1977</td>
-          </tr>
+          </tr> -->
       </table>
     </div>
   
 
-<!--    <script src="jquery-3.2.1.min.js"></script> -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="library-project.js"></script>
   </body>
 </html>
