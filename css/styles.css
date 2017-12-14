@@ -18,6 +18,18 @@ body {
 #display-results {
     background-color: #ffbf80;
 }
+
+.short-form {
+    width: 20%;
+}
+
+#add-button {
+    width: 10%;
+    margin-left: 1px;
+    padding: 0;
+
+}
+
 button {
     margin: 10px;
     width: 100%;

@@ -60,11 +60,16 @@ var Library;
     };
 })();
 
-var Book = function(title, author, numberOfPages, publishDate) {    //Book prototype
-    this.title = title;
-    this.author = author;
-    this.numberOfPages = numberOfPages;
-    this.publishDate = new Date(publishDate);
+Library.prototype.init = function() {
+    $("#add-book-form").hide();
+};
+
+
+var Book = function(args) {    //Book prototype
+    this.title = args.title;
+    this.author = args.author;
+    this.numberOfPages = args.numberOfPages;
+    this.publishDate = new Date(args.publishDate);
 };
 
 
@@ -81,7 +86,15 @@ Library.prototype.addBook = function(book) {
     }
     if (isBookThere === false) {
         this.booksList.push(book);
-        this.storeLibrary(); 
+        console.log(book);
+        // $("#bookTable").append(
+        //     `<tr>
+        //         <td>${book.title}</td>
+        //         <td>${book.author}</td>
+        //         <td>${book.numberOfPages}</td>
+        //         <td>${book.publishDate}</td>
+        //     </tr>`
+        // );
         return true;
     } else{
         return false;
@@ -185,27 +198,31 @@ Library.prototype.getRandomAuthorName = function() {
     }
 };
 
-// Library.prototype.getInputFromForm = function(){
+Library.prototype.getBookInput = function(args){
+    newBook = new Book(args);
+    newBook.title = $("#title-input").val();
+    newBook.author = $("#author-input").val()
+    newBook.numberOfPages = $("#page-input").val();
+    newBook.publishDateDate = new Date($("#date-input").val());
+    console.log(newBook);
+    this.AddBook(newBook);
+    this.storeLibrary();
+       
+    
+}; 
 
-// }
+
 $("#add-book").on( {
     click: function() {
-        document.getElementById("display-results").innerHTML = 
-        `<form  action='/action_page.php'
-        <div class="form-group">
-            <input type="search" class="form-control"  placeholder="Find Title">
-        </div>
-        <div class="form-group">
-            <input type="search" class="form-control" placeholder="Find Author">
-        </div>
-        <div class="form-group">
-            <input type="search" class="form-control" placeholder="Page Count">
-        </div>
-        <div class="form-group">
-            <input type="search" class="form-control" placeholder="Publish Date">
-        </div>
-      </form>`
+        $("#add-book-form").show();
+
     }
+});
+
+$("#add-button").on( {
+    click: function () {
+      myLibrary.getBookInput();
+    } 
 });
 
 $("#add-many-books").on( {
@@ -236,6 +253,28 @@ $("#remove-author").on( {
     }
 });
 
+$("#find-title").on( {
+    click: function() {
+        document.getElementById("display-results").innerHTML =         
+        `<form  action='/action_page.php'
+        <div class="form-group">
+            <input type="search" class="form-control"  placeholder="Find Title">
+        </div>
+    </form>`;;
+    }
+});
+
+$("#find-author").on( {
+    click: function() {
+        document.getElementById("display-results").innerHTML =         
+        `<form  action='/action_page.php'
+        <div class="form-group">
+            <input type="search" class="form-control"  placeholder="Find Author">
+        </div>
+    </form>`;
+    }
+});
+
 $("#get-authors").on( {
     click: function() {
         document.getElementById("display-results").innerHTML = "myLibrary.getAuthors()";
@@ -260,23 +299,26 @@ $("#get-rand-author").on( {
 
 // test cases
 
-   var myLibrary = new Library();
+   $(function(){
+    window.myLibrary = new Library();
+    window.myLibrary.init();
+   });
 
 
-var booksArray = [
-    (new Book("The Hobbit","J.R.R. Tolkien", 300, "September 21, 1937")),
-    (new Book("The Sword of Shannara","Terry Brooks", 700, "1977")),
-    (new Book("The Elfstones of Shannara","Terry Brooks", 700, "1980")),
-    (new Book("The Wishsong of Shannara","Terry Brooks", 700, "1985")),
-    (new Book("Ready Player One","Ernest Cline", 400, "August 16, 2011")),
-    (new Book("The Crystal Shard","R. A. Salvatore", 400, "1988")),
-    (new Book("Dragons of Autumn Twilight","Margaret Weiss and Tracy Hickman", 300, "1984")),
-    (new Book("The Stand","Stephen King", 1000, "1978")),
-    (new Book("The Fellowship of the Ring","J.R.R. Tolkien", 500, "September 21, 1945")),
-    (new Book("The Two Towers","J.R.R. Tolkien", 500, "November 21, 1946")),
-    (new Book("The Return of the King", "J.R.R. Tolkien", 500, "August 21, 1947")),
-    (new Book("The Lion, The Witch and the Wardrobe", "C.S.Lewis", 200, "1945"))
-    ];
+// var booksArray = [
+//     (new Book("The Hobbit","J.R.R. Tolkien", 300, "September 21, 1937")),
+//     (new Book("The Sword of Shannara","Terry Brooks", 700, "1977")),
+//     (new Book("The Elfstones of Shannara","Terry Brooks", 700, "1980")),
+//     (new Book("The Wishsong of Shannara","Terry Brooks", 700, "1985")),
+//     (new Book("Ready Player One","Ernest Cline", 400, "August 16, 2011")),
+//     (new Book("The Crystal Shard","R. A. Salvatore", 400, "1988")),
+//     (new Book("Dragons of Autumn Twilight","Margaret Weiss and Tracy Hickman", 300, "1984")),
+//     (new Book("The Stand","Stephen King", 1000, "1978")),
+//     (new Book("The Fellowship of the Ring","J.R.R. Tolkien", 500, "September 21, 1945")),
+//     (new Book("The Two Towers","J.R.R. Tolkien", 500, "November 21, 1946")),
+//     (new Book("The Return of the King", "J.R.R. Tolkien", 500, "August 21, 1947")),
+//     (new Book("The Lion, The Witch and the Wardrobe", "C.S.Lewis", 200, "1945"))
+//     ];
 
 
 // console.log(myLibrary.addBooks(booksArray));            //add Books test
