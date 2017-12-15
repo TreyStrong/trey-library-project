@@ -15,12 +15,12 @@
     </header>
     <div class="container">
       <div class=row>
-          <form  id="add-book-form" action="/action_page.php" class= "form-inline col-md-10 col-md-offset-2">
+          <form  id="edit-book-form" action="/action_page.php" class= "form-inline col-md-10 col-md-offset-2">
             <div class="form-group">
-                <input type="text" id="title-input" class="short-form form-control"  placeholder="Find Title">
+                <input type="text" id="title-input" class="short-form form-control"  placeholder="Title">
             </div>
             <div class="form-group">
-                <input type="text" id="author-input" class="short-form form-control" placeholder="Find Author">
+                <input type="text" id="author-input" class="short-form form-control" placeholder="Author">
             </div>
             <div class="form-group">
                 <input type="text" id="page-input" class="short-form form-control" placeholder="Page Count">
@@ -29,6 +29,7 @@
                 <input type="text" id="date-input" class="short-form form-control" placeholder="Publish Date">
             </div>
             <button type="button" id="add-button" class="btn-sm">Add</button>
+            <button type="button" id="remove-button" class="btn-sm">Remove</button>
         </form>
       </div>
       <div class= "row">
@@ -54,55 +55,15 @@
           </div> 
         </div>
       </div>
-      <table id="bookTable" class="col-md-8 col-md-offset-2">
+      <table id="bookTable" class="col-md-10 col-md-offset-1">
         <tr>
           <th>Title</th>
           <th>Author</th>
           <th>Page Count</th>
           <th>Publish Date</th>
         </tr>
-        <!-- <tr>
-          <td>The Hobbit</td>
-          <td>J.R.R. Tolkien</td>
-          <td>400</td>
-          <td>September 21, 1937</td>
-        </tr>
-        <tr>
-          <td>The Sword of Shannara</td>
-          <td>Terry Brooks</td>
-          <td>700</td>
-          <td>September 21, 1977</td>
-        </tr>
-        <tr>
-          <td>The Fellowship of The Ring</td>
-          <td>J.R.R. Tolkien</td>
-          <td>400</td>
-          <td>September 21, 1937</td>
-        </tr>
-        <tr>
-          <td>The Elfstones of Shannara</td>
-          <td>Terry Brooks</td>
-          <td>700</td>
-          <td>September 21, 1977</td>
-        </tr>
-        <tr>
-          <td>The Two Towers</td>
-          <td>J.R.R. Tolkien</td>
-          <td>400</td>
-          <td>September 21, 1937</td>
-        </tr>
-        <tr>
-          <td>The Wishsong of Shannara</td>
-          <td>Terry Brooks</td>
-          <td>700</td>
-          <td>September 21, 1977</td>
-        </tr>
-        <tr>
-            <td>Dragons of Autumn Twilight</td>
-            <td>Margaret Weiss &amp Tracy Hickman</td>
-            <td>700</td>
-            <td>September 21, 1977</td>
-          </tr> -->
+        <tbody id="bookTableBody">
+        </tbody>
       </table>
     </div>
   

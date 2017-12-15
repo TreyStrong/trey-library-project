@@ -23,7 +23,7 @@ body {
     width: 20%;
 }
 
-#add-button {
+.btn-sm {
     width: 10%;
     margin-left: 1px;
     padding: 0;
@@ -41,9 +41,7 @@ button {
     text-align: center;
     margin: 5px;
 }
-.sub-button {
-    width: 10%;
-}
+
 .rightButtons {
     float: right;
 }
