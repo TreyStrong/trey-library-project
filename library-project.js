@@ -83,8 +83,8 @@ Library.prototype._bindEvents = function() {
     $("#remove-title").on("click", $.proxy(this.showRemoveTitleForm, this));  
     $("#remove-author").on("click", $.proxy(this.showRemoveAuthorForm, this)); 
     $("#remove-button").on("click", $.proxy(this.removeBookHandler,this)); 
-    // $("#find-title").on("click",  $.proxy(this.showFindTitleForm, this));
-    // $("#find-author").on("click", $.proxy(this.showFindAuthorForm, this));
+    $("#find-title").on("click",  $.proxy(this.showFindTitleForm, this));
+    $("#find-author").on("click", $.proxy(this.showFindAuthorForm, this));
     $("#get-authors").on("click", $.proxy(this.listAuthorsHandler, this));
     $("#get-rand-book").on("click", $.proxy(this.randomBookHandler, this));
     $("#get-rand-author").on("click", $.proxy(this.randomAuthorHandler, this));
@@ -218,6 +218,11 @@ Library.prototype.getRandomAuthorName = function() {
 Library.prototype.showAddForm = function () {
  $("#edit-book-form").show();
  document.forms["edit-book-form"].reset();
+ $("#title-input").show();
+ $("#author-input").show();
+ $("#page-input").show();
+ $("#date-input").show();
+ $("#add-button").show();
  $("#remove-button").hide();
 };
 
@@ -229,6 +234,8 @@ Library.prototype.showRemoveTitleForm = function () {
     $("#page-input").hide();
     $("#date-input").hide();
     $("#add-button").hide();
+    $("#remove-button").show();
+    document.getElementById("remove-button").innerHTML = "Remove";
 };
 
 Library.prototype.showRemoveAuthorForm = function () {
@@ -239,6 +246,18 @@ Library.prototype.showRemoveAuthorForm = function () {
     $("#page-input").hide();
     $("#date-input").hide();
     $("#add-button").hide();
+    $("#remove-button").show();
+    document.getElementById("remove-button").innerHTML = "Remove";
+};
+
+Library.prototype.showFindTitleForm = function () {
+    this.showRemoveTitleForm();
+    document.getElementById("remove-button").innerHTML = "Find";
+};
+
+Library.prototype.showFindAuthorForm = function () {
+    this.showRemoveAuthorForm();
+    document.getElementById("remove-button").innerHTML = "Find";
 };
 
 Library.prototype.addBookHandler = function(newTitle, newAuthor, newPages, newPubDate){
@@ -257,23 +276,35 @@ Library.prototype.addBookHandler = function(newTitle, newAuthor, newPages, newPu
 
 Library.prototype.listAuthorsHandler = function () {
     var newAuthorsArray = this.getAuthors();
-   document.getElementById("display-results").innerHTML = "Author: " + newAuthorsArray + "<br />";
-}
+    console.log(newAuthorsArray);
+    if (newAuthorsArray.length ===  0) {
+        document.getElementById("display-results").innerHTML = "There are no books in the library."
+    } else {
+        document.getElementById("display-results").innerHTML = "Author: " + newAuthorsArray + "<br />";
+    };
+};
 
 Library.prototype.randomBookHandler = function() {
     var randBook = this.getRandomBook();
+    if (randBook === null) {
+        document.getElementById("display-results").innerHTML = "There are no books in the library."
+    } else {
     document.getElementById("display-results").innerHTML =
         "Title: " + randBook.title + "<br />" +
         "Author: " + randBook.author +  "<br />" +
         "Pages: " + randBook.numberOfPages  +  "<br />" +
         "Publish Date: " + randBook.publishDate;
+    };
 };
 
 Library.prototype.randomAuthorHandler = function() {
     var randAuthor = this.getRandomAuthorName();
-    document.getElementById("display-results").innerHTML = "Author: " + randAuthor;
-
-}
+    if (randAuthor === null) {
+        document.getElementById("display-results").innerHTML = "There are no books in the library."
+    } else {  
+        document.getElementById("display-results").innerHTML = "Author: " + randAuthor;
+    };
+};
 
 $(function(){
     window.myLibrary = new Library();
