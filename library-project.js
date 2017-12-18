@@ -124,29 +124,34 @@ Library.prototype.addBook = function(book) {
 
 
 Library.prototype.removeBookByTitle = function (title) {
-    console.log(title);
+    var wereBooksRemoved = false;
     if( (typeof(title) === "string") && (title !== null)) {
         for (var i = this.booksList.length-1; i >= 0; i--) {
             if (title.toLowerCase() === this.booksList[i].title.toLowerCase()) {
                 this.booksList.splice(i,1);
+                document.getElementById("bookTableBody").deleteRow(i);
                 this.storeLibrary(); 
-                return true;
-            } 
-        }
-    }
+                wereBooksRemoved =  true;
+            }; 
+        };
+    };
+    return wereBooksRemoved;
 };
 
 
 Library.prototype.removeBooksByAuthor = function (author) {
+    var wereBooksRemoved = false;
     if((typeof(author) === "string") && (author !== null)) {
         for (var i = this.booksList.length-1; i >= 0; i--) {
             if (author.toLowerCase() === this.booksList[i].author.toLowerCase()) {
                 this.booksList.splice(i,1);
+                document.getElementById("bookTableBody").deleteRow(i);
                 this.storeLibrary(); 
-                return true;
+                wereBooksRemoved = true;
             } 
         }  
     }
+    return wereBooksRemoved;
 };
 
 Library.prototype.getRandomBook = function() {
@@ -307,7 +312,7 @@ Library.prototype.addBookHandler = function(newTitle, newAuthor, newPages, newPu
 }; 
 
 Library.prototype.removeTitleHandler = function(oldTitle) {
-    oldTitle.title = $("#title-input").val();
+    var oldTitle = $("#title-input").val();
 
     this.removeBookByTitle(oldTitle);
     this.storeLibrary();
@@ -315,7 +320,11 @@ Library.prototype.removeTitleHandler = function(oldTitle) {
 };
 
 Library.prototype.removeAuthorHandler = function() {
-
+    var oldAuthor = $("#author-input").val();
+    
+    this.removeBooksByAuthor(oldAuthor);
+    this.storeLibrary();
+    this.clearTopForm();
 };
 
 Library.prototype.findTitleHandler = function(newTitle) {
@@ -326,23 +335,20 @@ Library.prototype.findTitleHandler = function(newTitle) {
         document.getElementById("display-results").innerHTML = "There are no books in the library."
     } else {
         for (i=0; i < newTitlesArray.length; i++) {
-            document.getElementById("display-results").innerHTML = {
-            "Title: " + newTitlesArray[i].title + "<br />" +
-            "Author: " + newTitlesArray[i].author +  "<br />" +
-            "Pages: " + newTitlesArray[i].numberOfPages  +  "<br />" +
-            "Publish Date: " + newTitlesArray[i].publishDate;
+                document.getElementById("display-results").innerHTML = 
+                "Title: " + newTitlesArray[i].title + "<br />" +
+                "Author: " + newTitlesArray[i].author +  "<br />" +
+                "Pages: " + newTitlesArray[i].numberOfPages  +  "<br />" +
+                "Publish Date: " + newTitlesArray[i].publishDate;
             };
-        };
     };
     this.clearTopForm();
 };
 
 Library.prototype.findAuthorHandler = function (newAuthor) {
     newAuthor = $("#author-input").val();
-    console.log(newAuthor);
     var newAuthorsArray = this.getBooksByAuthor(newAuthor);
-    console.log(newAuthorsArray);
-    if (newAuthorsArray.length ===  0) {
+     if (newAuthorsArray.length ===  0) {
         document.getElementById("display-results").innerHTML = "There are no books in the library."
     } else {
         for (i=0; i < newAuthorsArray.length; i++) {
