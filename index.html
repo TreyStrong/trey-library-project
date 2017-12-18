@@ -14,7 +14,7 @@
           </div>
     </header>
     <div class="container">
-      <div class=row>
+      <div id="inputArea" class=row>
           <form  id="edit-book-form" action="/action_page.php" class= "form-inline col-md-10 col-md-offset-2">
             <div class="form-group">
                 <input type="text" id="title-input" class="short-form form-control"  placeholder="Title">
@@ -25,14 +25,16 @@
             <div class="form-group">
                 <input type="text" id="page-input" class="short-form form-control" placeholder="Page Count">
             </div>
-            <div class="form-group">
+            <div id = "end-of-form" class="form-group">
                 <input type="text" id="date-input" class="short-form form-control" placeholder="Publish Date">
             </div>
+            <button type="button" id="add-more-button" class="btn-sm">Add More</button>
+            <button type="button" id="done-button" class="btn-sm">Done</button>
             <button type="button" id="add-button" class="btn-sm">Add</button>
             <button type="button" id="remove-button-t" class="btn-sm">Remove Title</button>
             <button type="button" id="remove-button-a" class="btn-sm">Remove Author</button>
             <button type="button" id="find-title-button" class="btn-sm">Find Title</button>
-            <button type="button" id="find-author-button" class="btn-sm">Find Author</button>
+            <button type="button" id="find-author-button" class="btn-sm">Find Author</button>          
         </form>
       </div>
       <div class= "row">
