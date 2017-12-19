@@ -1,6 +1,11 @@
 
 //library constructor
 var Library;
+var bookTitleId = 'bookTitle';
+var bookAuthorId = 'bookAuthor';
+var bookPageId = 'bookPage';
+var bookDateId = 'bookDate';
+var bookIdCounter = 0;
 
 (function() {
     var instance;
@@ -73,6 +78,7 @@ Library.prototype.init = function() {
     $("#edit-book-form").hide();
     document.getElementById("display-results").innerHTML = "";
     this._bindEvents();
+
 };
 
 
@@ -126,6 +132,22 @@ Library.prototype.addBook = function(book) {
        
 };
 
+Library.prototype.addBooks = function(books) {
+    var bookCount = 0;
+    if ((Array.isArray(books)) && (typeof(books) !== undefined)) {
+        for (var i = 0; i < books.length; i++) {
+            if (this.addBook(books[i])) {
+                bookCount++;
+            }
+        }
+    } else {
+        console.log("Input is not valid");
+    }  
+    this.storeLibrary();  
+    document.getElementById("display-results").innerHTML = "You added " + bookCount + " books to the library."
+    return bookCount;
+};
+
 Library.prototype.removeBookByTitle = function (title) {
     var wereBooksRemoved = false;
     if( (typeof(title) === "string") && (title !== null)) {
@@ -154,22 +176,6 @@ Library.prototype.removeBooksByAuthor = function (author) {
         }  
     }
     return wereBooksRemoved;
-};
-
-Library.prototype.addBooks = function(books) {
-    var bookCount = 0;
-    if ((Array.isArray(books)) && (typeof(books) !== undefined)) {
-        for (var i = 0; i < books.length; i++) {
-            if (this.addBook(books[i])) {
-                bookCount++;
-            }
-        }
-    } else {
-        console.log("Input is not valid");
-    }  
-    this.storeLibrary();  
-    document.getElementById("display-results").innerHTML = "You added " + bookCount + " books to the library."
-    return bookCount;
 };
 
 Library.prototype.getRandomBook = function() {
@@ -233,10 +239,10 @@ Library.prototype.showEditForm = function (num) {
         case 1:
             $("#edit-book-form").show();
             document.forms["edit-book-form"].reset();
-            $("#title-input").show();
-            $("#author-input").show();
-            $("#page-input").show();
-            $("#date-input").show();
+            $("#bookTitle0").show();
+            $("#bookAuthor0").show();
+            $("#bookPage0").show();
+            $("#bookDate0").show();
             $("#add-more-button").hide();
             $("#done-button").hide();
             $("#add-button").show();
@@ -248,10 +254,10 @@ Library.prototype.showEditForm = function (num) {
         case 2:
             $("#edit-book-form").show();
             document.forms["edit-book-form"].reset();
-            $("#title-input").show();
-            $("#author-input").show();
-            $("#page-input").show();
-            $("#date-input").show();
+            $("#bookTitle0").show();
+            $("#bookAuthor0").show();
+            $("#bookPage0").show();
+            $("#bookDate0").show();
             $("#add-more-button").show();
             $("#done-button").show();
             $("#add-button").hide();
@@ -263,10 +269,10 @@ Library.prototype.showEditForm = function (num) {
         case 3:
             $("#edit-book-form").show();
             document.forms["edit-book-form"].reset();
-            $("#title-input").show();
-            $("#author-input").hide();
-            $("#page-input").hide();
-            $("#date-input").hide();
+            $("#bookTitle0").show();
+            $("#bookAuthor0").hide();
+            $("#bookPage0").hide();
+            $("#bookDate0").hide();
             $("#add-more-button").hide();
             $("#done-button").hide();
             $("#add-button").hide();
@@ -278,10 +284,10 @@ Library.prototype.showEditForm = function (num) {
         case 4:
             $("#edit-book-form").show();
             document.forms["edit-book-form"].reset();
-            $("#title-input").hide();
-            $("#author-input").show();
-            $("#page-input").hide();
-            $("#date-input").hide();
+            $("#bookTitle0").hide();
+            $("#bookAuthor0").show();
+            $("#bookPage0").hide();
+            $("#bookDate0").hide();
             $("#add-more-button").hide();
             $("#done-button").hide();
             $("#add-button").hide();
@@ -293,10 +299,10 @@ Library.prototype.showEditForm = function (num) {
         case 5:
             $("#edit-book-form").show();
             document.forms["edit-book-form"].reset();
-            $("#title-input").show();
-            $("#author-input").hide();
-            $("#page-input").hide();
-            $("#date-input").hide();
+            $("#bookTitle0").show();
+            $("#bookAuthor0").hide();
+            $("#bookPage0").hide();
+            $("#bookDate0").hide();
             $("#add-more-button").hide();
             $("#done-button").hide();
             $("#add-button").hide();
@@ -308,10 +314,10 @@ Library.prototype.showEditForm = function (num) {
         case 6:
             $("#edit-book-form").show();
             document.forms["edit-book-form"].reset();
-            $("#title-input").hide();
-            $("#author-input").show();
-            $("#page-input").hide();
-            $("#date-input").hide();
+            $("#bookTitle0").hide();
+            $("#bookAuthor0").show();
+            $("#bookPage0").hide();
+            $("#bookDate0").hide();
             $("#add-more-button").hide();
             $("#done-button").hide();
             $("#add-button").hide();
@@ -327,51 +333,56 @@ Library.prototype.showEditForm = function (num) {
 Library.prototype.clearTopForm = function () {
     document.forms["edit-book-form"].reset();
     $("#edit-book-form").hide();
+    elementCounter = 0;
 }
 
 Library.prototype.addBookHandler = function(newTitle, newAuthor, newPages, newPubDate){
-    newBook = new Book(newTitle, newAuthor, newPages, newPubDate);
-    newBook.title = $("#title-input").val();
-    newBook.author = $("#author-input").val();
-    newBook.numberOfPages = $("#page-input").val();
-    newBook.publishDate = new Date($("#date-input").val());
-
+    var newBook = this.makeNewBook(newTitle, newAuthor, newPages, newPubDate);
     this.addBook(newBook);
     this.storeLibrary();
     this.clearTopForm();
 }; 
 
-Library.prototype.addMoreBooksHandler = function(newTitle, newAuthor, newPages, newPubDate) {
+Library.prototype.addMoreBooksHandler = function () {
+    ++bookIdCounter;
+    var br = document.createElement("br");
+    var newTitle = $('<input/>').attr({ type: 'text', name: 'title', placeholder: 'Title', id: bookTitleId + bookIdCounter }).addClass("form-control");
+    var newAuthor = $('<input/>').attr({ type: 'text', name: 'author', placeholder: 'Author', id: bookAuthorId + bookIdCounter }).addClass("form-control");
+    var newPage = $('<input/>').attr({ type: 'text', name: 'pages', placeholder: 'Pages', id: bookPageId + bookIdCounter }).addClass("form-control");
+    var newDate = $('<input/>').attr({ type: 'text', name: 'date', placeholder: 'Date', id: bookDateId + bookIdCounter }).addClass("form-control");
+    $("#edit-book-form").append(br, newTitle, newAuthor, newPage, newDate, br);
+};
+
+Library.prototype.addAllBooks = function(newTitle, newAuthor, newPages, newPubDate) {
     var addedBooks = [];
-
-    newBook = new Book(newTitle, newAuthor, newPages, newPubDate);
-    // newBook.title = $("#title-input").val();
-    // newBook.author = $("#author-input").val();
-    // newBook.numberOfPages = $("#page-input").val();
-    // newBook.publishDate = new Date($("#date-input").val());
-    
-    addedBooks.push(newBook);
-    
-
-    this.addMoreInputs("end-of-form");
-    return addedBooks;
+    var loopCount = bookIdCounter;
+    console.log(loopCount);
+    for (var i = 0; i <= loopCount; i++){
+        newBook = new Book(newTitle, newAuthor, newPages, newPubDate);
+        newBook.title = $("#" + bookTitleId + i).val();
+        newBook.author = $("#" + bookAuthorId + i).val();
+        newBook.numberOfPages = $("#" + bookPageId + i).val();
+        newBook.publishDate = new Date($("#" + bookDateId + i).val());
+        addedBooks.push(newBook);
+    };
+    this.addBooks(addedBooks);
+    this.storeLibrary();
+    this.clearTopForm();
+   
 };
 
-Library.prototype.addMoreInputs = function (oldDiv) {
-    var newDiv = document.createElement("div");
-    newDiv.innerHTML = 
-        `<br />
-        <div class='form-group'>
-        <input type='text' class='short-form form-control' placeholder='Title'></div>
-        <div class='form-group'><input type='text' class='short-form form-control' placeholder='Author'></div>
-        <div class='form-group'><input type='text' class='short-form form-control' placeholder='Page Count'></div>
-        <div class='form-group'><input type='text' class='short-form form-control' placeholder='Publish Date'></div>`;
-    document.getElementById(oldDiv).appendChild(newDiv);
-};
+Library.prototype.makeNewBook = function(newTitle, newAuthor, newPages, newPubDate) {
+    madeBook = new Book(newTitle, newAuthor, newPages, newPubDate);
+    madeBook.title = $("#" + bookTitleId + bookIdCounter).val();
+    madeBook.author = $("#" + bookAuthorId + bookIdCounter).val();
+    madeBook.numberOfPages = $("#" + bookPageId + bookIdCounter).val();
+    madeBook.publishDate = new Date($("#" + bookDateId + bookIdCounter).val());
 
+    return madeBook;
+}
 
 Library.prototype.removeTitleHandler = function(oldTitle) {
-    var oldTitle = $("#title-input").val();
+    var oldTitle = $("#bookTitle0").val();
 
     this.removeBookByTitle(oldTitle);
     this.storeLibrary();
@@ -379,7 +390,7 @@ Library.prototype.removeTitleHandler = function(oldTitle) {
 };
 
 Library.prototype.removeAuthorHandler = function() {
-    var oldAuthor = $("#author-input").val();
+    var oldAuthor = $("#bookAuthor0").val();
     
     this.removeBooksByAuthor(oldAuthor);
     this.storeLibrary();
@@ -387,7 +398,7 @@ Library.prototype.removeAuthorHandler = function() {
 };
 
 Library.prototype.findTitleHandler = function(newTitle) {
-    newTitle = $("#title-input").val();
+    newTitle = $("#bookTitle0").val();
     var newTitlesArray = this.getBookByTitle(newTitle);
     
     if (newTitlesArray.length ===  0) {
@@ -405,7 +416,7 @@ Library.prototype.findTitleHandler = function(newTitle) {
 };
 
 Library.prototype.findAuthorHandler = function (newAuthor) {
-    newAuthor = $("#author-input").val();
+    newAuthor = $("#bookAuthor0").val();
     var newAuthorsArray = this.getBooksByAuthor(newAuthor);
      if (newAuthorsArray.length ===  0) {
         document.getElementById("display-results").innerHTML = "There are no books in the library."
