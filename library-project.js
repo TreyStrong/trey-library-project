@@ -238,7 +238,7 @@ Library.prototype.showEditForm = function (num) {
             $("#page-input").show();
             $("#date-input").show();
             $("#add-more-button").hide();
-            $("done-button").hide();
+            $("#done-button").hide();
             $("#add-button").show();
             $("#remove-button-t").hide();
             $("#remove-button-a").hide();
@@ -253,7 +253,7 @@ Library.prototype.showEditForm = function (num) {
             $("#page-input").show();
             $("#date-input").show();
             $("#add-more-button").show();
-            $("done-button").show();
+            $("#done-button").show();
             $("#add-button").hide();
             $("#remove-button-t").hide();
             $("#remove-button-a").hide();
@@ -268,7 +268,7 @@ Library.prototype.showEditForm = function (num) {
             $("#page-input").hide();
             $("#date-input").hide();
             $("#add-more-button").hide();
-            $("done-button").hide();
+            $("#done-button").hide();
             $("#add-button").hide();
             $("#remove-button-t").show();
             $("#remove-button-a").hide();
@@ -283,7 +283,7 @@ Library.prototype.showEditForm = function (num) {
             $("#page-input").hide();
             $("#date-input").hide();
             $("#add-more-button").hide();
-            $("done-button").hide();
+            $("#done-button").hide();
             $("#add-button").hide();
             $("#remove-button-t").hide();
             $("#remove-button-a").show();
@@ -298,7 +298,7 @@ Library.prototype.showEditForm = function (num) {
             $("#page-input").hide();
             $("#date-input").hide();
             $("#add-more-button").hide();
-            $("done-button").hide();
+            $("#done-button").hide();
             $("#add-button").hide();
             $("#remove-button-t").hide();
             $("#remove-button-a").hide();
@@ -313,7 +313,7 @@ Library.prototype.showEditForm = function (num) {
             $("#page-input").hide();
             $("#date-input").hide();
             $("#add-more-button").hide();
-            $("done-button").hide();
+            $("#done-button").hide();
             $("#add-button").hide();
             $("#remove-button-t").hide();
             $("#remove-button-a").hide();
@@ -340,22 +340,20 @@ Library.prototype.addBookHandler = function(newTitle, newAuthor, newPages, newPu
     this.storeLibrary();
     this.clearTopForm();
 }; 
+
 Library.prototype.addMoreBooksHandler = function(newTitle, newAuthor, newPages, newPubDate) {
     var addedBooks = [];
-    
-    for (var i=0; i < addedBooks.length; i++) {
+
     newBook = new Book(newTitle, newAuthor, newPages, newPubDate);
-    newBook.title = $("#title-input").val();
-    newBook.author = $("#author-input").val();
-    newBook.numberOfPages = $("#page-input").val();
-    newBook.publishDate = new Date($("#date-input").val());
-    console.log(newBook);
+    // newBook.title = $("#title-input").val();
+    // newBook.author = $("#author-input").val();
+    // newBook.numberOfPages = $("#page-input").val();
+    // newBook.publishDate = new Date($("#date-input").val());
     
-        addedBooks.push(newBook);
-    }
+    addedBooks.push(newBook);
+    
 
     this.addMoreInputs("end-of-form");
-    console.log(addedBooks);
     return addedBooks;
 };
 
@@ -364,7 +362,7 @@ Library.prototype.addMoreInputs = function (oldDiv) {
     newDiv.innerHTML = 
         `<br />
         <div class='form-group'>
-        <input type='text' class='short-form form-control'  placeholder='Title'></div>
+        <input type='text' class='short-form form-control' placeholder='Title'></div>
         <div class='form-group'><input type='text' class='short-form form-control' placeholder='Author'></div>
         <div class='form-group'><input type='text' class='short-form form-control' placeholder='Page Count'></div>
         <div class='form-group'><input type='text' class='short-form form-control' placeholder='Publish Date'></div>`;
