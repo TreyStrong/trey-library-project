@@ -144,7 +144,7 @@ Library.prototype.addBooks = function(books) {
         console.log("Input is not valid");
     }  
     this.storeLibrary();  
-    document.getElementById("display-results").innerHTML = "You added " + bookCount + " books to the library."
+    document.getElementById("display-results").innerHTML = "You added " + bookCount + " books to the library.";
     return bookCount;
 };
 
@@ -155,10 +155,14 @@ Library.prototype.removeBookByTitle = function (title) {
             if (title.toLowerCase() === this.booksList[i].title.toLowerCase()) {
                 this.booksList.splice(i,1);
                 document.getElementById("bookTableBody").deleteRow(i);
+                document.getElementById("display-results").innerHTML = title + " was removed from the library.";
                 this.storeLibrary(); 
                 wereBooksRemoved =  true;
             }; 
         };
+    };
+    if (wereBooksRemoved === false) {
+        document.getElementById("display-results").innerHTML = "No books were removed from the library.";
     };
     return wereBooksRemoved;
 };
@@ -170,11 +174,15 @@ Library.prototype.removeBooksByAuthor = function (author) {
             if (author.toLowerCase() === this.booksList[i].author.toLowerCase()) {
                 this.booksList.splice(i,1);
                 document.getElementById("bookTableBody").deleteRow(i);
+                document.getElementById("display-results").innerHTML = "All books by " + author + " were removed from the library.";
                 this.storeLibrary(); 
                 wereBooksRemoved = true;
             } 
         }  
     }
+    if (wereBooksRemoved === false) {
+        document.getElementById("display-results").innerHTML = "No books were removed from the library.";
+    };
     return wereBooksRemoved;
 };
 
@@ -402,14 +410,14 @@ Library.prototype.findTitleHandler = function(newTitle) {
     var newTitlesArray = this.getBookByTitle(newTitle);
     
     if (newTitlesArray.length ===  0) {
-        document.getElementById("display-results").innerHTML = "There are no books in the library."
+        $("#display-results").append("There are no books in the library.");
     } else {
         for (i=0; i < newTitlesArray.length; i++) {
-                document.getElementById("display-results").innerHTML = 
+                $("#display-results").append( "<br />" +
                 "Title: " + newTitlesArray[i].title + "<br />" +
                 "Author: " + newTitlesArray[i].author +  "<br />" +
                 "Pages: " + newTitlesArray[i].numberOfPages  +  "<br />" +
-                "Publish Date: " + newTitlesArray[i].publishDate;
+                "Publish Date: " + newTitlesArray[i].publishDate +  "<br />");
             };
     };
     this.clearTopForm();
@@ -419,49 +427,55 @@ Library.prototype.findAuthorHandler = function (newAuthor) {
     newAuthor = $("#bookAuthor0").val();
     var newAuthorsArray = this.getBooksByAuthor(newAuthor);
      if (newAuthorsArray.length ===  0) {
-        document.getElementById("display-results").innerHTML = "There are no books in the library."
+        $("#display-results").append ("There are no books in the library.");
     } else {
         for (i=0; i < newAuthorsArray.length; i++) {
-            document.getElementById("display-results").innerHTML =    // put $.extend here
+            $("#display-results").append( "<br />" +
             "Title: " + newAuthorsArray[i].title + "<br />" +
             "Author: " + newAuthorsArray[i].author +  "<br />" +
             "Pages: " + newAuthorsArray[i].numberOfPages  +  "<br />" +
-            "Publish Date: " + newAuthorsArray[i].publishDate + "<br />";
-        }
+            "Publish Date: " + newAuthorsArray[i].publishDate + "<br />");
+        };
     };
     this.clearTopForm();
 };
 
 Library.prototype.listAuthorsHandler = function() {
+    $("#display-results").html("");
     var listAuthorsArray = this.getAuthors();
     if (listAuthorsArray.length ===  0) {
-        document.getElementById("display-results").innerHTML = "There are no books in the library."
+        $("#display-results").append("There are no books in the library.");
     } else {
-        document.getElementById("display-results").innerHTML = "Author: " + listAuthorsArray + "<br />";
+        for(var i =0; i <listAuthorsArray.length; i++) {
+            $("#display-results").append("Author: " + listAuthorsArray[i] + "<br />");
+        }
+        
     };
     this.clearTopForm();
 };
 
 Library.prototype.randomBookHandler = function() {
+    $("#display-results").html("");
     var randBook = this.getRandomBook();
     if (randBook === null) {
-        document.getElementById("display-results").innerHTML = "There are no books in the library."
+        $("#display-results").append("There are no books in the library.");
     } else {
-    document.getElementById("display-results").innerHTML =
+    $("#display-results").append(
         "Title: " + randBook.title + "<br />" +
         "Author: " + randBook.author +  "<br />" +
         "Pages: " + randBook.numberOfPages  +  "<br />" +
-        "Publish Date: " + randBook.publishDate;
+        "Publish Date: " + randBook.publishDate);
     };
     this.clearTopForm();
 };
 
 Library.prototype.randomAuthorHandler = function() {
+    $("#display-results").html("");
     var randAuthor = this.getRandomAuthorName();
     if (randAuthor === null) {
-        document.getElementById("display-results").innerHTML = "There are no books in the library."
+        $("#display-results").append("There are no books in the library.");
     } else {  
-        document.getElementById("display-results").innerHTML = "Author: " + randAuthor;
+        $("#display-results").append("Author: " + randAuthor);
     };
     this.clearTopForm();
 };
@@ -470,59 +484,4 @@ $(function(){
     window.myLibrary = new Library();
     window.myLibrary.init();
 });
-
-
-// var booksArray = [
-//     (new Book("The Hobbit","J.R.R. Tolkien", 300, "September 21, 1937")),
-//     (new Book("The Sword of Shannara","Terry Brooks", 700, "1977")),
-//     (new Book("The Elfstones of Shannara","Terry Brooks", 700, "1980")),
-//     (new Book("The Wishsong of Shannara","Terry Brooks", 700, "1985")),
-//     (new Book("Ready Player One","Ernest Cline", 400, "August 16, 2011")),
-//     (new Book("The Crystal Shard","R. A. Salvatore", 400, "1988")),
-//     (new Book("Dragons of Autumn Twilight","Margaret Weiss and Tracy Hickman", 300, "1984")),
-//     (new Book("The Stand","Stephen King", 1000, "1978")),
-//     (new Book("The Fellowship of the Ring","J.R.R. Tolkien", 500, "September 21, 1945")),
-//     (new Book("The Two Towers","J.R.R. Tolkien", 500, "November 21, 1946")),
-//     (new Book("The Return of the King", "J.R.R. Tolkien", 500, "August 21, 1947")),
-//     (new Book("The Lion, The Witch and the Wardrobe", "C.S.Lewis", 200, "1945"))
-//     ];
-
-
-// console.log(myLibrary.addBooks(booksArray));            //add Books test
-// console.log(myLibrary.booksList);
-
-// console.log(myLibrary.addBooks(booksArray));            //add books duplicate books test
-
-
-// console.log(myLibrary.addBook(new Book("Harry Potter and the Sorcerer's Stone","J.K. Rowling", 300, "June 26, 1997")));    //add book test
-
-// console.log(myLibrary.addBook(new Book("Ready Player One","Ernest Cline", 400, "August 16, 2011"))); //add book already in library //add duplicate book
-
-// console.log(myLibrary.removeBookByTitle("The Hobbit"));        //remove book by title test
-
-// console.log(myLibrary.removeBooksByAuthor("J.R.R. Tolkien"));     //remove book by author test
-// console.log(myLibrary.booksList);
-
-// console.log(myLibrary.getRandomBook());                       //random book test
-// console.log(myLibrary.getRandomBook());
-
-
-                   
-// console.log(myLibrary.getRandomAuthorName());                     //random author tests
-// console.log(myLibrary.getRandomAuthorName());
-// console.log(myLibrary.getRandomAuthorName());
-// console.log(myLibrary.getRandomAuthorName());
-// console.log(myLibrary.getRandomAuthorName());
-// console.log(myLibrary.getRandomAuthorName());
-
-// console.log(myLibrary.getBookByTitle("Ready Player One"));              //get books by title test
-
-// console.log(myLibrary.getBooksByAuthor("Terry Brooks"));                  //get books by author test
-// console.log(myLibrary.getBooksByAuthor("Brooks"));
-
-// console.log(myLibrary.getAuthors());                            //get authors test
-
-
-
-
 

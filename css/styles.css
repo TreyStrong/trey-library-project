@@ -48,12 +48,18 @@ button {
 
 td {
     text-align: left;
-}th {
+}
+
+th {
     text-align: center;
+    background-color:#b35900;
+    color: #ffcc00;
 }
 
 table, th, td {
     border: 1px solid #000000;
 }
 
+tr:nth-child(odd) {background-color: #ffbf80;}
+tr:nth-child(even) {background-color: #993300; color: #ffcc00}
 
