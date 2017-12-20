@@ -200,11 +200,13 @@ Library.prototype.getBookByTitle = function(title) {
     var titlesArray = [];
     if( (typeof(title) === "string") && (title !== null)) {
         for (var i = 0; i < this.booksList.length; i++) {
-            if (this.booksList[i].title.indexOf(title) !== -1) {
-                titlesArray.push(this.booksList[i]);
-            }
-        }   
-    }
+            if (title.toLowerCase() === this.booksList[i].title.toLowerCase()) {
+                if (this.booksList[i].title.indexOf(title) !== -1) {
+                    titlesArray.push(this.booksList[i]);
+                };
+            };
+        };  
+    };
     return titlesArray;
 };
 
@@ -212,11 +214,13 @@ Library.prototype.getBooksByAuthor = function(author) {
     var authorsArray = [];
     if( (typeof(author) === "string") && (author !== null)) {
         for (var i = 0; i < this.booksList.length; i++) {
-            if (this.booksList[i].author.indexOf(author) !== -1 ) {
-                authorsArray.push(this.booksList[i]);
+            if (author.toLowerCase() === this.booksList[i].author.toLowerCase()) {
+                if (this.booksList[i].author.indexOf(author) !== -1 ) {
+                    authorsArray.push(this.booksList[i]);
+                };
             };
         };
-    }
+    };
     return authorsArray;
 };
 
@@ -244,10 +248,12 @@ Library.prototype.showEditForm = function (num) {
     document.getElementById("display-results").innerHTML = "";
     switch(num) {
         default: 
+            $("#add-inputs").empty();
             $("#edit-book-form").hide();
             document.forms["edit-book-form"].reset();
             break;
         case 1:
+            $("#add-inputs").empty();
             $("#edit-book-form").show();
             document.forms["edit-book-form"].reset();
             $("#bookTitle0").show();
@@ -263,6 +269,7 @@ Library.prototype.showEditForm = function (num) {
             $("#find-author-button").hide();
             break;
         case 2:
+            $("#add-inputs").empty();
             $("#edit-book-form").show();
             document.forms["edit-book-form"].reset();
             $("#bookTitle0").show();
@@ -278,6 +285,7 @@ Library.prototype.showEditForm = function (num) {
             $("#find-author-button").hide();
             break;
         case 3:
+            $("#add-inputs").empty();
             $("#edit-book-form").show();
             document.forms["edit-book-form"].reset();
             $("#bookTitle0").show();
@@ -293,6 +301,7 @@ Library.prototype.showEditForm = function (num) {
             $("#find-author-button").hide();
             break;
         case 4:
+            $("#add-inputs").empty();
             $("#edit-book-form").show();
             document.forms["edit-book-form"].reset();
             $("#bookTitle0").hide();
@@ -308,6 +317,7 @@ Library.prototype.showEditForm = function (num) {
             $("#find-author-button").hide();
             break;
         case 5:
+            $("#add-inputs").empty();
             $("#edit-book-form").show();
             document.forms["edit-book-form"].reset();
             $("#bookTitle0").show();
@@ -323,6 +333,7 @@ Library.prototype.showEditForm = function (num) {
             $("#find-author-button").hide();
             break;
         case 6:
+            $("#add-inputs").empty();
             $("#edit-book-form").show();
             document.forms["edit-book-form"].reset();
             $("#bookTitle0").hide();
@@ -342,7 +353,7 @@ Library.prototype.showEditForm = function (num) {
 }
 
 Library.prototype.clearTopForm = function () {
-    $(".extra-input").empty().remove(); 
+    $("#add-inputs").empty(); 
     document.forms["edit-book-form"].reset();
     $("#edit-book-form").hide();
     bookIdCounter = 0;
@@ -371,18 +382,17 @@ Library.prototype.addBookHandler = function(newTitle, newAuthor, newPages, newPu
 
 Library.prototype.addMoreBooksHandler = function () {
     ++bookIdCounter;
-    var br = document.createElement("br");
     var newTitle = $('<input/>').attr({ type: 'text', name: 'title', placeholder: 'Title', id: bookTitleId + bookIdCounter }).addClass("form-control extra-input");
     var newAuthor = $('<input/>').attr({ type: 'text', name: 'author', placeholder: 'Author', id: bookAuthorId + bookIdCounter }).addClass("form-control extra-input");
     var newPage = $('<input/>').attr({ type: 'text', name: 'pages', placeholder: 'Pages', id: bookPageId + bookIdCounter }).addClass("form-control extra-input");
     var newDate = $('<input/>').attr({ type: 'text', name: 'pubDate', placeholder: 'Date', id: bookDateId + bookIdCounter }).addClass("form-control extra-input");
-    $("#edit-book-form").append(br, newTitle, newAuthor, newPage, newDate, br);
+    $("#add-inputs").append(newTitle, newAuthor, newPage, newDate, "<br />");
 };
 
 Library.prototype.addAllBooks = function(newTitle, newAuthor, newPages, newPubDate) {
     var addedBooks = [];
     var loopCount = bookIdCounter;
-    if (this.validateForm() !== false) {
+    
         for (var i = 0; i <= loopCount; i++){
             newBook = new Book(newTitle, newAuthor, newPages, newPubDate);
             newBook.title = $("#" + bookTitleId + i).val();
@@ -391,11 +401,11 @@ Library.prototype.addAllBooks = function(newTitle, newAuthor, newPages, newPubDa
             newBook.publishDate = new Date($("#" + bookDateId + i).val());
             addedBooks.push(newBook);
         };
-        
+  //        if (this.validateForm() !== false) {    
         this.addBooks(addedBooks);
         this.storeLibrary();
         this.clearTopForm();
-    };
+   //   };
    
 };
 
@@ -496,6 +506,7 @@ Library.prototype.randomBookHandler = function() {
 };
 
 Library.prototype.randomAuthorHandler = function() {
+
     $("#display-results").html("");
     var randAuthor = this.getRandomAuthorName();
     if (randAuthor === null) {

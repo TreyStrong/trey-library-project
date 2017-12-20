@@ -48,13 +48,15 @@ button {
 }
 
 td {
-    text-align: left;
+    text-align: center;
+    height: 45px;
 }
 
 th {
     text-align: center;
     background-color:#b35900;
     color: #ffcc00;
+    height: 50px;
 }
 
 table, th, td {
