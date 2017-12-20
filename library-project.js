@@ -232,8 +232,8 @@ Library.prototype.getRandomAuthorName = function() {
         return null;
     } else {
         var shortAuthorsList = this.getAuthors();
-        var randBook = Math.floor(Math.random() * (shortAuthorsList.length -1));
-        return this.booksList[randBook].author;
+        var randBook = Math.floor(Math.random() * (shortAuthorsList.length));
+        return shortAuthorsList[randBook];
     }
 };
 
