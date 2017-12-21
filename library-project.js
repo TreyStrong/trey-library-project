@@ -1,11 +1,14 @@
 
-//library constructor
-var Library;
+//Global variables for creating dynamic add field ids
 var bookTitleId = 'bookTitle';
 var bookAuthorId = 'bookAuthor';
 var bookPageId = 'bookPage';
 var bookDateId = 'bookDate';
 var bookIdCounter = 0;
+
+
+//library constructor
+var Library;
 
 (function() {
     var instance;
@@ -74,6 +77,7 @@ var Book = function(title, author, numberOfPages, publishDate) {    //Book proto
 
 //Library functions
 
+//Init function runs on document ready
 Library.prototype.init = function() {
     $("#edit-book-form").hide();
     document.getElementById("display-results").innerHTML = "";
@@ -82,7 +86,7 @@ Library.prototype.init = function() {
 };
 
 
-
+//bind events for buttons
 Library.prototype._bindEvents = function() {
     $("#add-book").on("click", $.proxy(this.showEditForm, this, 1)); 
     $("#add-button").on("click", $.proxy(this.addBookHandler,this));
@@ -102,7 +106,7 @@ Library.prototype._bindEvents = function() {
     $("#get-rand-author").on("click", $.proxy(this.randomAuthorHandler, this));
 };
 
-
+// original javascript project funcctions to do the work
 Library.prototype.addBook = function(book) {
     var isBookThere = false; 
     if ((typeof(book) === "object") && (book !== null) && (book !== undefined)) {
@@ -244,6 +248,7 @@ Library.prototype.getRandomAuthorName = function() {
     }
 };
 
+// function to format input area based on button clicked
 Library.prototype.showEditForm = function (num) {
     document.getElementById("display-results").innerHTML = "";
     switch(num) {
@@ -352,6 +357,7 @@ Library.prototype.showEditForm = function (num) {
     }
 }
 
+// clearing input area for next button
 Library.prototype.clearTopForm = function () {
     $("#add-inputs").empty(); 
     document.forms["edit-book-form"].reset();
@@ -359,6 +365,7 @@ Library.prototype.clearTopForm = function () {
     bookIdCounter = 0;
 }
 
+// validate form input to prevent blank entries going into storage
 Library.prototype.validateForm = function() {
     var chkTitle = document.forms["edit-book-form"]["title"].value;
     var chkAuthor = document.forms["edit-book-form"]["author"].value;
@@ -370,6 +377,8 @@ Library.prototype.validateForm = function() {
     }
 } 
 
+// functions to process button clicks
+// add book(s) functionality
 Library.prototype.addBookHandler = function(newTitle, newAuthor, newPages, newPubDate){
     if (this.validateForm() !== false) {
         var newBook = this.makeNewBook(newTitle, newAuthor, newPages, newPubDate);
@@ -419,6 +428,7 @@ Library.prototype.makeNewBook = function(newTitle, newAuthor, newPages, newPubDa
     return madeBook;
 }
 
+//remove books fuctionality
 Library.prototype.removeTitleHandler = function(oldTitle) {
     if (this.validateForm() !== false) {
         var oldTitle = $("#bookTitle0").val();
@@ -437,6 +447,7 @@ Library.prototype.removeAuthorHandler = function() {
     }
 };
 
+//find books/author functionality
 Library.prototype.findTitleHandler = function(newTitle) {
     if (this.validateForm() !== false) {
         newTitle = $("#bookTitle0").val();
@@ -476,6 +487,7 @@ Library.prototype.findAuthorHandler = function (newAuthor) {
     };
 };
 
+// pulling all authors or a random book/author functionality
 Library.prototype.listAuthorsHandler = function() {
     $("#display-results").html("");
     var listAuthorsArray = this.getAuthors();
@@ -517,6 +529,7 @@ Library.prototype.randomAuthorHandler = function() {
     this.clearTopForm();
 };
 
+//document ready function - creates library, then runs init function
 $(function(){
     window.myLibrary = new Library();
     window.myLibrary.init();
