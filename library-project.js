@@ -381,7 +381,7 @@ Library.prototype.validateForm = function() {
 // add book(s) functionality
 Library.prototype.addBookHandler = function(newTitle, newAuthor, newPages, newPubDate){
     if (this.validateForm() !== false) {
-        var newBook = this.makeNewBook(newTitle, newAuthor, newPages, newPubDate);
+        var newBook = this.makeNewBook(newTitle, newAuthor, newPages, newPubDate, bookIdCounter);
    
         this.addBook(newBook);
         this.storeLibrary();
@@ -403,11 +403,7 @@ Library.prototype.addAllBooks = function(newTitle, newAuthor, newPages, newPubDa
     var loopCount = bookIdCounter;
     
         for (var i = 0; i <= loopCount; i++){
-            newBook = new Book(newTitle, newAuthor, newPages, newPubDate);
-            newBook.title = $("#" + bookTitleId + i).val();
-            newBook.author = $("#" + bookAuthorId + i).val();
-            newBook.numberOfPages = $("#" + bookPageId + i).val();
-            newBook.publishDate = new Date($("#" + bookDateId + i).val());
+            var newBook = this.makeNewBook(newTitle, newAuthor, newPages, newPubDate, i);
             addedBooks.push(newBook);
         };
   //        if (this.validateForm() !== false) {    
@@ -418,12 +414,12 @@ Library.prototype.addAllBooks = function(newTitle, newAuthor, newPages, newPubDa
    
 };
 
-Library.prototype.makeNewBook = function(newTitle, newAuthor, newPages, newPubDate) {
+Library.prototype.makeNewBook = function(newTitle, newAuthor, newPages, newPubDate, newNum) {
     madeBook = new Book(newTitle, newAuthor, newPages, newPubDate);
-    madeBook.title = $("#" + bookTitleId + bookIdCounter).val();
-    madeBook.author = $("#" + bookAuthorId + bookIdCounter).val();
-    madeBook.numberOfPages = $("#" + bookPageId + bookIdCounter).val();
-    madeBook.publishDate = new Date($("#" + bookDateId + bookIdCounter).val());
+    madeBook.title = $("#" + bookTitleId + newNum).val();
+    madeBook.author = $("#" + bookAuthorId + newNum).val();
+    madeBook.numberOfPages = $("#" + bookPageId + newNum).val();
+    madeBook.publishDate = new Date($("#" + bookDateId + newNum).val());
 
     return madeBook;
 }
