@@ -1,0 +1,69 @@
+body {
+    background-color:#cc9966
+}
+.banner {
+     color: #ffcc00;
+     text-align: center;
+}
+.headerTitle {
+    font-family:  'Trebuchet MS', Verdana, Geneva, Arial, sans-serif;
+    font-style: italic;
+}
+
+.container {
+    margin-left: 0;
+    padding-right: 0;
+}
+
+#display-results {
+    background-color: #ffbf80;
+    font-family: 'Trebuchet MS', Verdana, Geneva, Arial, sans-serif;
+}
+
+.short-form {
+    width: 15%;
+}
+
+.btn-sm {
+    width: 10%;
+    margin-left: 1px;
+    margin-right: 1px;
+    padding: 0;
+
+}
+
+button {
+    margin: 10px;
+    width: 100%;
+    height: 50px;
+    background-color: #993300;
+    color: #ffcc00;
+}
+.btn-toolbar-vertical {
+    text-align: center;
+    margin: 5px;
+}
+
+.rightButtons {
+    float: right;
+}
+
+td {
+    text-align: center;
+    height: 45px;
+}
+
+th {
+    text-align: center;
+    background-color:#b35900;
+    color: #ffcc00;
+    height: 50px;
+}
+
+table, th, td {
+    border: 1px solid #000000;
+}
+
+tr:nth-child(odd) {background-color: #ffbf80;}
+tr:nth-child(even) {background-color: #993300; color: #ffcc00}
+
